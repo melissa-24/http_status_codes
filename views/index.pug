@@ -1,0 +1,18 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+        link(rel='stylesheet' href='/css/style.css')
+        //- link(rel='shortcut icon' href='https://images.craftsnherbs.com/bee/IMG_0992.jpg')
+        title HTTP Status Codes
+    body
+        header
+            h1 HTTP Status Codes
+            nav
+                a(href='/') Home
+        main
+            each item in items
+                a(href=`/${item.id}`) #{item.code}
+        footer
+            h4 Created by Melissa Longenberger

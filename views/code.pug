@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+        link(rel='stylesheet' href='/css/style.css')
+        //- link(rel='shortcut icon' href='https://images.craftsnherbs.com/bee/IMG_0992.jpg')
+        title HTTP Status Code #{item.code}
+    body
+        header
+            h1 HTTP Status Code - #{item.code}
+            nav
+                a(href='/') Home
+                a(href=`/${prevId}`) Previous
+                a(href=`/${nextId}`) Next
+        main
+            div(class='column')
+                h2 Status Code - #{item.code}
+                h3 #{item.title}
+                img(src=`${item.display_img}`)
+        footer
+            h4 Created by Melissa Longenberger
