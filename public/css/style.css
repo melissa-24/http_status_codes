@@ -24,9 +24,20 @@ body header {
 }
 body main {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+body main .row {
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+}
+body main .row a img {
+  max-width: 250px;
+  margin: 1em;
 }
 body main .column {
   display: flex;

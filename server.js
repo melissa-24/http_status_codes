@@ -9,10 +9,7 @@ app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'public')))
 
-// app.get('/', (req, res) => {
-//     res.json({ message: 'HoneyBee!' });
-// });
-
+// Load index.pug for the root URL
 app.get('/', (req, res) => {
     fs.readFile('data.json', 'utf8', (err, data) => {
         if (err) {
@@ -24,8 +21,19 @@ app.get('/', (req, res) => {
     });
 });
 
-// New route to render Pug template for viewing data by ID
-app.get('/:id', (req, res) => {
+// Load the entire JSON response
+app.get('/json.json', (req, res) => {
+    fs.readFile('data.json', 'utf8', (err, data) => {
+        if (err) {
+            res.status(500).json({ error: 'Failed to read data' });
+            return;
+        }
+        res.json(JSON.parse(data));
+    });
+});
+
+// Load view.pug for a specific ID
+app.get('/:id(\\d+)', (req, res) => {
     const id = parseInt(req.params.id);
     fs.readFile('data.json', 'utf8', (err, data) => {
         if (err) {
@@ -39,11 +47,9 @@ app.get('/:id', (req, res) => {
             return;
         }
 
-        // Get all ids in an array
         const ids = jsonData.map(obj => obj.id);
         const currentIndex = ids.indexOf(id);
 
-        // Calculate previous and next ids
         const prevIndex = (currentIndex - 1 + ids.length) % ids.length;
         const nextIndex = (currentIndex + 1) % ids.length;
 
@@ -54,17 +60,8 @@ app.get('/:id', (req, res) => {
     });
 });
 
-app.get('/api/data', (req, res) => {
-    fs.readFile('data.json', 'utf8', (err, data) => {
-        if (err) {
-            res.status(500).json({ error: 'Failed to read data' });
-            return;
-        }
-        res.json(JSON.parse(data));
-    });
-});
-
-app.get('/api/data/:id', (req, res) => {
+// Load the image for a specific ID
+app.get('/:id(\\d+).png', (req, res) => {
     const id = parseInt(req.params.id);
     fs.readFile('data.json', 'utf8', (err, data) => {
         if (err) {
@@ -74,24 +71,15 @@ app.get('/api/data/:id', (req, res) => {
         const jsonData = JSON.parse(data);
         const item = jsonData.find(obj => obj.id === id);
         if (item) {
-            res.json(item);
+            res.redirect(item.img);
         } else {
-            res.status(404).json({ error: 'Data not found' });
+            res.status(404).json({ error: 'Image not found' });
         }
     });
 });
 
-app.get('/api/codes', (req, res) => {
-    fs.readFile('data.json', 'utf8', (err, data) => {
-        if (err) {
-            res.status(500).json({ error: 'Failed to read data' });
-            return;
-        }
-        res.json(JSON.parse(data));
-    });
-});
-
-app.get('/api/codes/:id', (req, res) => {
+// Load the JSON entry for a specific ID
+app.get('/:id(\\d+).json', (req, res) => {
     const id = parseInt(req.params.id);
     fs.readFile('data.json', 'utf8', (err, data) => {
         if (err) {

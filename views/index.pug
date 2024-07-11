@@ -8,11 +8,17 @@ html
         title HTTP Status Codes
     body
         header
-            h1 HTTP Status Codes
+            h1 Bee Themed HTTP Status Codes
             nav
                 a(href='/') Home
         main
-            each item in items
-                a(href=`/${item.id}`) #{item.code}
+            h3 How to use:
+            pre
+                code https://status-code.navyladyveteran.com/[code].png
+            div(class="row")
+                each item in items
+                    div(class="column")
+                        a(href=`/${item.id}`) 
+                            img(src=`${item.display_img}`)
         footer
             h4 Created by Melissa Longenberger
