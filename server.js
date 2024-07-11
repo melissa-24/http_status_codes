@@ -78,6 +78,24 @@ app.get('/:id(\\d+).png', (req, res) => {
     });
 });
 
+// Load the framed image for a specific ID
+app.get('/framed/:id(\\d+).png', (req, res) => {
+    const id = parseInt(req.params.id);
+    fs.readFile('data.json', 'utf8', (err, data) => {
+        if (err) {
+            res.status(500).json({ error: 'Failed to read data' });
+            return;
+        }
+        const jsonData = JSON.parse(data);
+        const item = jsonData.find(obj => obj.id === id);
+        if (item) {
+            res.redirect(item.display_img);
+        } else {
+            res.status(404).json({ error: 'Image not found' });
+        }
+    });
+});
+
 // Load the JSON entry for a specific ID
 app.get('/:id(\\d+).json', (req, res) => {
     const id = parseInt(req.params.id);

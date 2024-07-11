@@ -17,18 +17,38 @@ body {
 
     header {
         .flexcolumn();
+        width: 85%;
     }
     main {
         .flexcolumn();
+        width: 85%;
 
         .row {
             .flexrow();
             flex-wrap: wrap;
+            width: 100%;
+
+            .column {
+                .flexcolumn();
+            }
 
             a {
                 img {
                     max-width: 250px;
                     margin: 1em;
+                }
+            }
+        }
+        .item {
+            align-items: flex-start;
+            margin-top: 2em;
+            justify-content: space-evenly;
+
+            .column {
+                margin: 1em;
+
+                img {
+                    max-width: 350px;
                 }
             }
         }
@@ -39,5 +59,6 @@ body {
     }
     footer {
         .flexcolumn();
+        width: 85%;
     }
 }

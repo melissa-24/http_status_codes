@@ -14,9 +14,20 @@ html
                 a(href=`/${prevId}`) Previous
                 a(href=`/${nextId}`) Next
         main
-            div(class='column')
-                h2 Status Code - #{item.code}
-                h3 #{item.title}
-                img(src=`${item.display_img}`)
+            div(class='row item')
+                div(class='column')
+                    h3 #{item.title}
+                    img(src=`${item.display_img}`)
+                div(class='column')
+                    h3 Load transparent image
+                    pre
+                        code https://status-code.navyladyveteran.com/#{item.id}.png
+                    h3 Load framed image
+                    pre
+                        code https://status-code.navyladyveteran.com/framed/#{item.id}.png
+                    h3 Load json
+                    pre
+                        code https://status-code.navyladyveteran.com/#{item.id}.json
+            p #{item.description}
         footer
             h4 Created by Melissa Longenberger
